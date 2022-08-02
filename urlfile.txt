@@ -1,2 +1,1 @@
-🤷  This control plane is not running! (state=Stopped)
-👉  To start a cluster, run: "minikube start"
+link to your local wordpress App
