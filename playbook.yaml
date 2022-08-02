@@ -1,0 +1,38 @@
+---
+- hosts: localhost
+  tasks:
+    - name: Creates directory
+      file:
+        path: /Users/picklupaul/Desktop/Kubernetes/multitenant-service/tenants/{{ tenantname }}
+        state: directory
+
+    - name: Apply Page Template
+      template:
+        src: /Users/picklupaul/Desktop/Kubernetes/multitenant-service/templates/kustomization.yaml.j2
+        dest: /Users/picklupaul/Desktop/Kubernetes/multitenant-service/tenants/{{ tenantname }}/kustomization.yaml
+    - name: Apply Page Template
+      template:
+        src: /Users/picklupaul/Desktop/Kubernetes/multitenant-service/templates/mysql-deployment.yaml
+        dest: /Users/picklupaul/Desktop/Kubernetes/multitenant-service/tenants/{{ tenantname }}/mysql-deployment.yaml
+    - name: Apply Page Template
+      template:
+        src: /Users/picklupaul/Desktop/Kubernetes/multitenant-service/templates/namespace.yaml.j2
+        dest: /Users/picklupaul/Desktop/Kubernetes/multitenant-service/tenants/{{ tenantname }}/namespace.yaml
+    - name: Apply Page Template
+      template:
+        src: /Users/picklupaul/Desktop/Kubernetes/multitenant-service/templates/network_policy.yaml.j2
+        dest: /Users/picklupaul/Desktop/Kubernetes/multitenant-service/tenants/{{ tenantname }}/network_policy.yaml
+    - name: Apply Page Template
+      template:
+        src: /Users/picklupaul/Desktop/Kubernetes/multitenant-service/templates/resource_quota.yaml
+        dest: /Users/picklupaul/Desktop/Kubernetes/multitenant-service/tenants/{{ tenantname }}/resource_quota.yaml
+    - name: Apply Page Template
+      template:
+        src: /Users/picklupaul/Desktop/Kubernetes/multitenant-service/templates/wordpress-deployment.yaml
+        dest: /Users/picklupaul/Desktop/Kubernetes/multitenant-service/tenants/{{ tenantname }}/wordpress-deployment.yaml
+    - name: Ansible command
+      command: kubectl apply -k /Users/picklupaul/Desktop/Kubernetes/multitenant-service/tenants/{{ tenantname }}/
+    - name: Ansible command
+      command: kubectl apply -f /Users/picklupaul/Desktop/Kubernetes/multitenant-service/tenants/{{ tenantname }}/network_policy.yaml
+    - name: Ansible command
+      command: kubectl apply -f /Users/picklupaul/Desktop/Kubernetes/multitenant-service/tenants/{{ tenantname }}/resource_quota.yaml

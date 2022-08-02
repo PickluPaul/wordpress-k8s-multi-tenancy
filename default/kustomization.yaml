@@ -1,0 +1,11 @@
+namespace: site5
+secretGenerator:
+- name: mysql-pass
+  literals:
+  - password=TEST_PASS
+resources:
+  - mysql-deployment.yaml
+  - wordpress-deployment.yaml
+  - namespace.yaml
+  - resource_quota.yaml
+  - network_policy.yaml
